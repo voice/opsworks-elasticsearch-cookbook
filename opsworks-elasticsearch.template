@@ -19,11 +19,6 @@
             "Description": "WebPassword",
             "Type": "String",
             "Default": "password"
-        },
-        "S3Archive": {
-            "Description": "S3ArchiveURL",
-            "Type": "String",
-            "Default": "ENTER YOUR S3 ARCHIVE URL"
         }
     },
     "Conditions": {
@@ -174,12 +169,12 @@
                             "name": "opsworks-elasticsearch"
                         },
                         "gateway": {
-                            "expected_nodes": 3
+                            "expected_nodes": 1
                         },
                         "discovery": {
                             "type": "ec2",
                             "zen": {
-                                "minimum_master_nodes": 2,
+                                "minimum_master_nodes": 1,
                                 "ping": {
                                     "multicast": {
                                         "enabled": false
@@ -298,7 +293,7 @@
                     {
                         "MountPoint": "/mnt/elasticsearch-data",
                         "NumberOfDisks": 1,
-                        "Size": 100
+                        "Size": 15
                     }
                 ],
                 "CustomSecurityGroupIds": [
@@ -322,36 +317,9 @@
                         "Ref": "searchLayer"
                     }
                 ],
-                "InstanceType": "m3.large"
+                "InstanceType": "t1.micro"
             }
-        },
-        "myInstance2": {
-            "Type": "AWS::OpsWorks::Instance",
-            "Properties": {
-                "StackId": {
-                    "Ref": "myStack"
-                },
-                "LayerIds": [
-                    {
-                        "Ref": "searchLayer"
-                    }
-                ],
-                "InstanceType": "m3.large"
-            }
-        },
-        "myInstance3": {
-            "Type": "AWS::OpsWorks::Instance",
-            "Properties": {
-                "StackId": {
-                    "Ref": "myStack"
-                },
-                "LayerIds": [
-                    {
-                        "Ref": "searchLayer"
-                    }
-                ],
-                "InstanceType": "m3.large"
-            }
+        }
         }
     }
 }
